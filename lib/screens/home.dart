@@ -1,38 +1,69 @@
 import 'package:flutter/material.dart';
+import 'package:shrine/model/product.dart';
+import 'package:shrine/model/product_repository.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
-  List<Card> _buildGridCards(int count) {
-    List<Card> cards = List.generate(
-        count,
-        (index) => Card(
+  // List<Card> _buildGridCards(int count) {
+  //   List<Card> cards = List.generate(
+  //       count,
+  //       (index) => Card(
+  //             clipBehavior: Clip.antiAlias,
+  //             child: Column(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 AspectRatio(
+  //                   aspectRatio: 18.0 / 11.0,
+  //                   child: Image.asset('assets/images/daimonds.jpg'),
+  //                 ),
+  //                 Padding(
+  //                   padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+  //                   child: Column(
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     children: const [
+  //                       Text('Title'),
+  //                       SizedBox(
+  //                         height: 8.0,
+  //                       ),
+  //                       Text('Secondary Text'),
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ));
+
+  //   return cards;
+  // }
+
+  List<Card> _buildGridCards(BuildContext context) {
+    List<Product> products = ProductsRepository.loadProducts(Category.all);
+
+    if (products.isEmpty) {
+      return const <Card>[];
+    }
+
+    final ThemeData themeData = Theme.of(context);
+    // final NumberFormat format = NumberFormat.simpleCurrency(
+    //     locale: Localizations.localeOf(context).toString());
+
+    return products
+        .map((product) => Card(
               clipBehavior: Clip.antiAlias,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AspectRatio(
-                    aspectRatio: 18.0 / 11.0,
-                    child: Image.asset('assets/images/daimonds.jpg'),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text('Title'),
-                        SizedBox(
-                          height: 8.0,
-                        ),
-                        Text('Secondary Text'),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ));
-
-    return cards;
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AspectRatio(
+                      aspectRatio: 18 / 11,
+                      child: Image.asset(
+                        product.assetName,
+                        package: product.assetPackage,
+                      ),
+                    )
+                  ]),
+            ))
+        .toList();
   }
 
   @override
