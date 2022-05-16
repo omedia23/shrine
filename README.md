@@ -1,6 +1,6 @@
 # shrine
 
-A new Flutter project.
+A e-commarce like demo app by MDC google
 
 ## Getting Started
 
