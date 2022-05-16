@@ -60,6 +60,25 @@ class HomePage extends StatelessWidget {
                         product.assetName,
                         package: product.assetPackage,
                       ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(16, 12, 16, 8),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                product.name,
+                                style: themeData.textTheme.headline6,
+                                maxLines: 1,
+                              ),
+                              const SizedBox(
+                                height: 8.0,
+                              ),
+                              Text(product.price.toString(),
+                                  style: themeData.textTheme.subtitle2)
+                            ]),
+                      ),
                     )
                   ]),
             ))
